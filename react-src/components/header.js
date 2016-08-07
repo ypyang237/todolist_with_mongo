@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const Header = React.createClass({
-  render: function() {
+  render: function(){
     return (
       <div className="header">
         <h1>To-Do List</h1>
@@ -13,7 +13,6 @@ const Header = React.createClass({
       </div>
     )
   }
-
 });
 
 module.exports = Header;

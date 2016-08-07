@@ -59,6 +59,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Header = __webpack_require__(238);
+	List = __webpack_require__(239);
 	
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRouter.Router,
@@ -27400,10 +27401,41 @@
 	      this.props.children
 	    );
 	  }
-	
 	});
 	
 	module.exports = Header;
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(175);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var List = _react2.default.createClass({
+	  displayName: 'List',
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'list' },
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        'LIST'
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = List;
 
 /***/ }
 /******/ ]);

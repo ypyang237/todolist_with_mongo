@@ -27385,7 +27385,9 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Header = react.createClass({
+	var Header = _react2.default.createClass({
+	  displayName: 'Header',
+	
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',

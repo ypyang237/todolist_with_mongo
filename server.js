@@ -3,6 +3,7 @@
 const express    = require('express'),
       bodyParser = require('body-parser'),
       app        = express(),
+      api        = require('./routes/api'),
       PORT       = process.env.PORT || 3000
       ;
 
@@ -11,7 +12,11 @@ app
   .use(bodyParser.json())
   ;
 
+app.use('/api', api);
+
 app.use(express.static(__dirname + "/public"));
+
+
 
 app.get('*', function(req, res){
   res.sendFile('./public/index.html',

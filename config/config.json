@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "PamelaYang",
+    "password": null,
+    "database": "things_to_do",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "PamelaYang",
+    "password": null,
+    "database": "things_to_do",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "PamelaYang",
+    "password": null,
+    "database": "things_to_do",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}

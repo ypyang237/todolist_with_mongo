@@ -60,7 +60,8 @@
 	
 	var Header = __webpack_require__(238),
 	    GetAll = __webpack_require__(241),
-	    Add = __webpack_require__(242);
+	    Add = __webpack_require__(242),
+	    Edit = __webpack_require__(243);
 	
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRouter.Router,
@@ -69,7 +70,8 @@
 	    _reactRouter.Route,
 	    { path: '/', component: Header },
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: GetAll }),
-	    _react2.default.createElement(_reactRouter.Route, { path: 'add', component: Add })
+	    _react2.default.createElement(_reactRouter.Route, { path: 'add', component: Add }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'edit', component: Edit })
 	  )
 	), document.getElementById('content'));
 
@@ -27410,10 +27412,17 @@
 	        { to: '/' },
 	        'Display All Tasks'
 	      ),
+	      _react2.default.createElement('br', null),
 	      _react2.default.createElement(
 	        _reactRouter.Link,
 	        { to: '/add' },
 	        'Add a Task'
+	      ),
+	      _react2.default.createElement('br', null),
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: '/edit' },
+	        'Edit a Task'
 	      ),
 	      this.props.children
 	    );
@@ -27520,15 +27529,15 @@
 	  handleChange: function handleChange(field, event) {
 	    var nextState = {};
 	    nextState[field] = event.target.value;
-	
 	    this.setState(nextState);
 	  },
+	
 	  handleSubmit: function handleSubmit() {
 	
 	    var newReq = new XMLHttpRequest();
 	
 	    newReq.addEventListener('load', function () {
-	      console.log(this);
+	      console.log(this); //redirect with browserhistory or show error message if success : false
 	    });
 	
 	    newReq.open('POST', '/api');
@@ -27584,6 +27593,94 @@
 	});
 	
 	module.exports = Add;
+
+/***/ },
+/* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Edit = _react2.default.createClass({
+	  displayName: 'Edit',
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      name: '',
+	      completed_at: ''
+	    };
+	  },
+	
+	  handleChange: function handleChange(field, event) {
+	    var nextState = {};
+	    nextState[field] = event.target.value;
+	    this.setState(nextState);
+	  },
+	
+	  handleSubmit: function handleSubmit() {
+	    var newReq = new XMLHttpRequest();
+	
+	    newReq.addEventListener('load', function () {
+	      console.log(this);
+	    });
+	
+	    newReq.open('PUT', '/api');
+	    newReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	    newReq.send(JSON.stringify({
+	      name: this.state.name,
+	      completed_at: this.state.completed_at
+	    }));
+	  },
+	
+	  render: function render() {
+	
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'h2',
+	        null,
+	        'EDIT ME'
+	      ),
+	      _react2.default.createElement('br', null),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        'Name :'
+	      ),
+	      _react2.default.createElement('input', {
+	        type: 'text',
+	        value: this.state.name,
+	        onChange: this.handleChange.bind(this, 'name')
+	      }),
+	      _react2.default.createElement('br', null),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        'Completed At :'
+	      ),
+	      _react2.default.createElement('input', {
+	        type: 'text',
+	        value: this.state.completed_at,
+	        onChange: this.handleChange.bind(this, 'completed_at')
+	      }),
+	      _react2.default.createElement('br', null),
+	      _react2.default.createElement(
+	        'button',
+	        { onClick: this.handleSubmit },
+	        'Submit'
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = Edit;
 
 /***/ }
 /******/ ]);

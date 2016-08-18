@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Add = React.createClass({
-  getInitialState: function() {
+const Edit = React.createClass({
+  getInitialState : function(){
       return {
         name : '',
         completed_at : ''
@@ -10,34 +10,33 @@ const Add = React.createClass({
 
   handleChange : function(field, event){
     var nextState = {};
-    nextState[field] = event.target.value;
+    nextState[field] = event.target.value
     this.setState(nextState);
   },
 
   handleSubmit : function(){
-
     var newReq = new XMLHttpRequest();
 
     newReq.addEventListener('load', function(){
-      console.log(this); //redirect with browserhistory or show error message if success : false
+      console.log(this);
+
     })
 
-    newReq.open('POST', '/api');
+    newReq.open('PUT', '/api')
     newReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     newReq.send(JSON.stringify({
-      name          : this.state.name,
-      compeleted_at : this.state.completed_at
+      name         : this.state.name,
+      completed_at : this.state.completed_at
     }))
   },
-
 
   render : function(){
 
     return (
-      <div className="add">
-        <h1>Add something to do!</h1>
+      <div>
+        <h2>EDIT ME</h2>
         <br/>
-        <p>Task Title :</p>
+        <p>Name :</p>
         <input
           type="text"
           value={this.state.name}
@@ -48,16 +47,14 @@ const Add = React.createClass({
         <input
           type="text"
           value={this.state.completed_at}
-          onChange={this.handleChange.bind(this, "completed_at")}
+          onChange={this.handleChange.bind(this, 'completed_at')}
         />
-        <br/>
         <br/>
         <button onClick={this.handleSubmit}>Submit</button>
       </div>
-
     )
   }
 
 });
 
-module.exports = Add;
+module.exports = Edit;

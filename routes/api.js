@@ -1,14 +1,18 @@
 'use strict';
 
 const express = require('express'),
-      router  = express.Router()
+      router  = express.Router(),
+      TaskFunctions = require('../lib/taskFunctions')
       ;
 
 router.route('/')
   .get(function(req, res){
-    res.send(
-    {
-      success : true
+    TaskFunctions.getAll()
+    .then(function(todos){
+      res.send(
+      {
+        tasks : todos
+      });
     });
   })
 

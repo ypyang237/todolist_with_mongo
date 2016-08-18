@@ -58,13 +58,17 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Header = __webpack_require__(238);
-	List = __webpack_require__(239);
+	var Header = __webpack_require__(238),
+	    GetAll = __webpack_require__(241);
 	
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRouter.Router,
 	  { history: _reactRouter.browserHistory },
-	  _react2.default.createElement(_reactRouter.Route, { path: '/', component: Header })
+	  _react2.default.createElement(
+	    _reactRouter.Route,
+	    { path: '/', component: Header },
+	    _react2.default.createElement(_reactRouter.IndexRoute, { component: GetAll })
+	  )
 	), document.getElementById('content'));
 
 /***/ },
@@ -27389,6 +27393,7 @@
 	var Header = _react2.default.createClass({
 	  displayName: 'Header',
 	
+	
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
@@ -27398,6 +27403,11 @@
 	        null,
 	        'To-Do List'
 	      ),
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: '/' },
+	        'Display All Tasks'
+	      ),
 	      this.props.children
 	    );
 	  }
@@ -27406,7 +27416,9 @@
 	module.exports = Header;
 
 /***/ },
-/* 239 */
+/* 239 */,
+/* 240 */,
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27415,27 +27427,68 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRouter = __webpack_require__(175);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var List = _react2.default.createClass({
-	  displayName: 'List',
+	var GetAll = _react2.default.createClass({
+	  displayName: 'GetAll',
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      tasks: []
+	    };
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    var that = this;
+	
+	    var getReq = new XMLHttpRequest();
+	    getReq.addEventListener("load", function () {
+	
+	      console.log(this.response);
+	      that.setState({
+	        tasks: JSON.parse(this.response).tasks
+	      });
+	    });
+	
+	    getReq.open('GET', '/api');
+	    getReq.send();
+	  },
 	
 	  render: function render() {
+	    var that = this;
+	
+	    var tasks = this.state.tasks.map(function (element) {
+	      return _react2.default.createElement(
+	        'div',
+	        { key: element.id },
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          element.id
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          element.name
+	        )
+	      );
+	    });
+	
 	    return _react2.default.createElement(
 	      'div',
-	      { className: 'list' },
+	      { className: 'getall' },
 	      _react2.default.createElement(
-	        'p',
+	        'h1',
 	        null,
-	        'LIST'
-	      )
+	        'All Tasks'
+	      ),
+	      tasks
 	    );
 	  }
+	
 	});
 	
-	module.exports = List;
+	module.exports = GetAll;
 
 /***/ }
 /******/ ]);

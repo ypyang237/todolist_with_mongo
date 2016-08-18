@@ -12,6 +12,7 @@ const Header = React.createClass({
       <div className="header">
         <h1>To-Do List</h1>
         <Link to='/'>Display All Tasks</Link>
+        <Link to='/add'>Add a Task</Link>
         {this.props.children}
       </div>
     )

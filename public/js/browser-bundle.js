@@ -59,7 +59,8 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Header = __webpack_require__(238),
-	    GetAll = __webpack_require__(241);
+	    GetAll = __webpack_require__(241),
+	    Add = __webpack_require__(242);
 	
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRouter.Router,
@@ -67,7 +68,8 @@
 	  _react2.default.createElement(
 	    _reactRouter.Route,
 	    { path: '/', component: Header },
-	    _react2.default.createElement(_reactRouter.IndexRoute, { component: GetAll })
+	    _react2.default.createElement(_reactRouter.IndexRoute, { component: GetAll }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'add', component: Add })
 	  )
 	), document.getElementById('content'));
 
@@ -27408,6 +27410,11 @@
 	        { to: '/' },
 	        'Display All Tasks'
 	      ),
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: '/add' },
+	        'Add a Task'
+	      ),
 	      this.props.children
 	    );
 	  }
@@ -27444,7 +27451,6 @@
 	    var getReq = new XMLHttpRequest();
 	    getReq.addEventListener("load", function () {
 	
-	      console.log(this.response);
 	      that.setState({
 	        tasks: JSON.parse(this.response).tasks
 	      });
@@ -27455,7 +27461,6 @@
 	  },
 	
 	  render: function render() {
-	    var that = this;
 	
 	    var tasks = this.state.tasks.map(function (element) {
 	      return _react2.default.createElement(
@@ -27464,12 +27469,12 @@
 	        _react2.default.createElement(
 	          'p',
 	          null,
-	          element.id
+	          element.name
 	        ),
 	        _react2.default.createElement(
 	          'p',
 	          null,
-	          element.name
+	          element.completed_at
 	        )
 	      );
 	    });
@@ -27489,6 +27494,96 @@
 	});
 	
 	module.exports = GetAll;
+
+/***/ },
+/* 242 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Add = _react2.default.createClass({
+	  displayName: 'Add',
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      name: '',
+	      completed_at: ''
+	    };
+	  },
+	
+	  handleChange: function handleChange(field, event) {
+	    var nextState = {};
+	    nextState[field] = event.target.value;
+	
+	    this.setState(nextState);
+	  },
+	  handleSubmit: function handleSubmit() {
+	
+	    var newReq = new XMLHttpRequest();
+	
+	    newReq.addEventListener('load', function () {
+	      console.log(this);
+	    });
+	
+	    newReq.open('POST', '/api');
+	    newReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	    newReq.send(JSON.stringify({
+	      name: this.state.name,
+	      compeleted_at: this.state.completed_at
+	    }));
+	  },
+	
+	  render: function render() {
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'add' },
+	      _react2.default.createElement(
+	        'h1',
+	        null,
+	        'Add something to do!'
+	      ),
+	      _react2.default.createElement('br', null),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        'Task Title :'
+	      ),
+	      _react2.default.createElement('input', {
+	        type: 'text',
+	        value: this.state.name,
+	        onChange: this.handleChange.bind(this, 'name')
+	      }),
+	      _react2.default.createElement('br', null),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        'Completed At :'
+	      ),
+	      _react2.default.createElement('input', {
+	        type: 'text',
+	        value: this.state.completed_at,
+	        onChange: this.handleChange.bind(this, "completed_at")
+	      }),
+	      _react2.default.createElement('br', null),
+	      _react2.default.createElement('br', null),
+	      _react2.default.createElement(
+	        'button',
+	        { onClick: this.handleSubmit },
+	        'Submit'
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = Add;
 
 /***/ }
 /******/ ]);

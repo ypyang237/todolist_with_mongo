@@ -17,9 +17,16 @@ router.route('/')
   })
 
   .post(function(req, res){
-    res.send(
-    {
-      POSTsuccess : true
+    TaskFunctions.addTask(req.body.name, req.body.completed_at)
+    .then(function(){
+      res.send({
+        success: true
+      });
+    })
+    .catch(function(){
+      res.send({
+        success: false
+      });
     });
   })
 

@@ -13,7 +13,6 @@ const GetAll = React.createClass({
     var getReq = new XMLHttpRequest();
     getReq.addEventListener("load", function(){
 
-      console.log(this.response);
       that.setState({
         tasks : JSON.parse(this.response).tasks
       })
@@ -25,13 +24,13 @@ const GetAll = React.createClass({
   },
 
   render: function() {
-    var that = this;
+
 
     var tasks = this.state.tasks.map(function(element){
       return (
         <div key={element.id}>
-          <p>{element.id}</p>
           <p>{element.name}</p>
+          <p>{element.completed_at}</p>
         </div>
       )
     })

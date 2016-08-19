@@ -9,20 +9,26 @@ const Edit = React.createClass({
       };
   },
 
-  componenetDidMount : function(){  //prepopulate with GET request
+  componentDidMount : function(){  //prepopulate with GET request
     var that = this;
 
     var getReq = new XMLHttpRequest();
 
     getReq.addEventListener('load', function(){
-      var result = JSON.parse(this.response).result;
 
-      console.log(result);
+      var name         = JSON.parse(this.response).task.name;
+      var completed_at = JSON.parse(this.response).task.completed_at;
+
+      that.setState({
+        name : name,
+        completed_at : completed_at
+      })
+
     })
 
 
 
-    getReq.open('GET', '/api')
+    getReq.open('GET', '/api/id/' + this.state.id)  //stuck here, cos i need to make the route /api/id/:id
     getReq.send();
 
   },
@@ -44,6 +50,7 @@ const Edit = React.createClass({
     newReq.open('PUT', '/api')
     newReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     newReq.send(JSON.stringify({
+      id           : this.state.id,
       name         : this.state.name,
       completed_at : this.state.completed_at
     }))

@@ -31,7 +31,9 @@ router.route('/')
   })
 
   .put(function(req, res){
-    TaskFunctions.editTask(req.body.name, req.body.completed_at)
+    console.log(req.body.id);
+
+    TaskFunctions.editTask(req.body.id, req.body.name, req.body.completed_at)
     .then(function(){
       res.send({
         PUTsuccess : true
@@ -49,5 +51,17 @@ router.route('/')
       DELETEsuccess : true
     });
   });
+
+  router.route('/id/:id')
+    .get(function(req, res){
+      TaskFunctions.searchById(req.params.id)
+      .then(function(task){
+        res.send({
+          task : task
+        });
+      });
+
+
+    });
 
   module.exports = router;

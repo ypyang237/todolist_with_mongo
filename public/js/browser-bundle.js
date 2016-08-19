@@ -27438,6 +27438,8 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactRouter = __webpack_require__(175);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var GetAll = _react2.default.createClass({
@@ -27464,7 +27466,12 @@
 	    getReq.send();
 	  },
 	
+	  handleEdit: function handleEdit(id) {
+	    _reactRouter.browserHistory.push('/edit/' + id);
+	  },
+	
 	  render: function render() {
+	    var that = this;
 	
 	    var tasks = this.state.tasks.map(function (element) {
 	      return _react2.default.createElement(
@@ -27479,6 +27486,11 @@
 	          'p',
 	          null,
 	          element.completed_at
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: that.handleEdit.bind(that, element.id) },
+	          'Edit'
 	        )
 	      );
 	    });
@@ -27613,7 +27625,6 @@
 	  },
 	
 	  componentDidMount: function componentDidMount() {
-	    //prepopulate with GET request
 	    var that = this;
 	
 	    var getReq = new XMLHttpRequest();
@@ -27629,8 +27640,7 @@
 	      });
 	    });
 	
-	    getReq.open('GET', '/api/id/' + this.state.id); //stuck here, cos i need to make the route /api/id/:id
-	    getReq.send();
+	    getReq.open('GET', '/api/id/' + this.state.id);
 	  },
 	
 	  handleChange: function handleChange(field, event) {

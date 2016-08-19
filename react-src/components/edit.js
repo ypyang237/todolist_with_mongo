@@ -9,7 +9,7 @@ const Edit = React.createClass({
       };
   },
 
-  componentDidMount : function(){  //prepopulate with GET request
+  componentDidMount : function(){
     var that = this;
 
     var getReq = new XMLHttpRequest();
@@ -28,8 +28,7 @@ const Edit = React.createClass({
 
 
 
-    getReq.open('GET', '/api/id/' + this.state.id)  //stuck here, cos i need to make the route /api/id/:id
-    getReq.send();
+    getReq.open('GET', '/api/id/' + this.state.id)
 
   },
 

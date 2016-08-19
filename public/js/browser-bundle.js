@@ -71,7 +71,7 @@
 	    { path: '/', component: Header },
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: GetAll }),
 	    _react2.default.createElement(_reactRouter.Route, { path: 'add', component: Add }),
-	    _react2.default.createElement(_reactRouter.Route, { path: 'edit', component: Edit })
+	    _react2.default.createElement(_reactRouter.Route, { path: 'edit/:id', component: Edit })
 	  )
 	), document.getElementById('content'));
 
@@ -27419,11 +27419,6 @@
 	        'Add a Task'
 	      ),
 	      _react2.default.createElement('br', null),
-	      _react2.default.createElement(
-	        _reactRouter.Link,
-	        { to: '/edit' },
-	        'Edit a Task'
-	      ),
 	      this.props.children
 	    );
 	  }
@@ -27611,9 +27606,26 @@
 	
 	  getInitialState: function getInitialState() {
 	    return {
+	      id: this.props.params.id,
 	      name: '',
 	      completed_at: ''
 	    };
+	  },
+	
+	  componenetDidMount: function componenetDidMount() {
+	    //prepopulate with GET request
+	    var that = this;
+	
+	    var getReq = new XMLHttpRequest();
+	
+	    getReq.addEventListener('load', function () {
+	      var result = JSON.parse(this.response).result;
+	
+	      console.log(result);
+	    });
+	
+	    getReq.open('GET', '/api');
+	    getReq.send();
 	  },
 	
 	  handleChange: function handleChange(field, event) {

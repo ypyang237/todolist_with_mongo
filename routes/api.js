@@ -20,19 +20,27 @@ router.route('/')
     TaskFunctions.addTask(req.body.name, req.body.completed_at)
     .then(function(){
       res.send({
-        success: true
+        success : true
       });
     })
     .catch(function(){
       res.send({
-        success: false
+        success : false
       });
     });
   })
 
   .put(function(req, res){
-    res.send({
-      PUTsuccess : true
+    TaskFunctions.editTask(req.body.name, req.body.completed_at)
+    .then(function(){
+      res.send({
+        PUTsuccess : true
+      });
+    })
+    .catch(function(){
+      res.send({
+        success : false
+      });
     });
   })
 

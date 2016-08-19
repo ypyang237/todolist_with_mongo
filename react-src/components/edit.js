@@ -3,9 +3,28 @@ import React from 'react';
 const Edit = React.createClass({
   getInitialState : function(){
       return {
+        id   : this.props.params.id,
         name : '',
         completed_at : ''
       };
+  },
+
+  componenetDidMount : function(){  //prepopulate with GET request
+    var that = this;
+
+    var getReq = new XMLHttpRequest();
+
+    getReq.addEventListener('load', function(){
+      var result = JSON.parse(this.response).result;
+
+      console.log(result);
+    })
+
+
+
+    getReq.open('GET', '/api')
+    getReq.send();
+
   },
 
   handleChange : function(field, event){

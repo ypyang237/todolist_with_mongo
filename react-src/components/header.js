@@ -15,7 +15,6 @@ const Header = React.createClass({
         <br/>
         <Link to='/add'>Add a Task</Link>
         <br/>
-        <Link to='/edit'>Edit a Task</Link>
         {this.props.children}
       </div>
     )

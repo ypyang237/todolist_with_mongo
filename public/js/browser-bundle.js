@@ -27442,16 +27442,19 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var Filter = __webpack_require__(244);
+	
 	var GetAll = _react2.default.createClass({
 	  displayName: 'GetAll',
 	
 	  getInitialState: function getInitialState() {
 	    return {
-	      tasks: []
+	      tasks: [],
+	      view: 'All'
 	    };
 	  },
 	
-	  componentDidMount: function componentDidMount() {
+	  componentWillMount: function componentWillMount() {
 	    var that = this;
 	
 	    var getReq = new XMLHttpRequest();
@@ -27543,10 +27546,39 @@
 	    }));
 	  },
 	
+	  setView: function setView(view) {
+	    this.setState({
+	      view: view
+	    });
+	  },
+	
 	  render: function render() {
 	    var that = this;
 	
-	    var tasks = this.state.tasks.map(function (element) {
+	    var tasksToShow = this.state.tasks;
+	
+	    if (this.state.tasks.length > 0) {
+	      tasksToShow = this.state.tasks.filter(function (element) {
+	        if (that.state.view === 'Uncompleted') {
+	          if (element.done === true) {
+	            return false;
+	          } else {
+	            return true;
+	          }
+	        }
+	        if (that.state.view === 'Completed') {
+	          if (element.done === false) {
+	            return false;
+	          } else {
+	            return true;
+	          }
+	        } else {
+	          return true;
+	        }
+	      });
+	    }
+	
+	    var tasks = tasksToShow.map(function (element) {
 	      return _react2.default.createElement(
 	        'div',
 	        { key: element.id },
@@ -27583,6 +27615,7 @@
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'getall' },
+	      _react2.default.createElement(Filter, { setView: this.setView }),
 	      _react2.default.createElement(
 	        'h1',
 	        null,
@@ -27794,6 +27827,61 @@
 	});
 	
 	module.exports = Edit;
+
+/***/ },
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Filter = _react2.default.createClass({
+	  displayName: 'Filter',
+	
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      status: "All"
+	    };
+	  },
+	
+	  handleChange: function handleChange(event) {
+	    this.props.setView(event.target.value);
+	    this.setState({
+	      status: event.target.value
+	    });
+	  },
+	
+	  render: function render() {
+	
+	    return _react2.default.createElement(
+	      'select',
+	      { value: this.state.status, onChange: this.handleChange },
+	      _react2.default.createElement(
+	        'option',
+	        { value: 'Uncompleted' },
+	        'Show Uncompleted Tasks'
+	      ),
+	      _react2.default.createElement(
+	        'option',
+	        { value: 'Completed' },
+	        'Show Completed Tasks'
+	      ),
+	      _react2.default.createElement(
+	        'option',
+	        { value: 'All' },
+	        'Show All Tasks'
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Filter;
 
 /***/ }
 /******/ ]);

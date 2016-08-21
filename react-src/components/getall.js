@@ -1,14 +1,17 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 
+const Filter = require('./filter');
+
 const GetAll = React.createClass({
   getInitialState : function(){
     return {
-      tasks : []
+      tasks : [],
+      view  : 'All'
     }
   },
 
-  componentDidMount : function(){
+  componentWillMount : function(){
     var that = this;
 
     var getReq = new XMLHttpRequest();
@@ -103,10 +106,42 @@ const GetAll = React.createClass({
     }))
   },
 
-  render: function() {
+  setView : function(view){
+    this.setState({
+      view : view
+    })
+  },
+
+  render : function() {
     var that = this;
 
-    var tasks = this.state.tasks.map(function(element){
+    var tasksToShow = this.state.tasks;
+
+    if(this.state.tasks.length > 0){
+      tasksToShow = this.state.tasks.filter(function(element){
+        if(that.state.view === 'Uncompleted'){
+          if(element.done === true){
+            return false;
+          }
+          else {
+            return true;
+          }
+        }
+        if(that.state.view === 'Completed'){
+          if(element.done === false){
+            return false;
+          }
+          else {
+            return true;
+          }
+        }
+        else {
+          return true;
+        }
+      });
+    }
+
+    var tasks = tasksToShow.map(function(element){
       return (
         <div key={element.id}>
           <p>{element.name}</p>
@@ -128,6 +163,7 @@ const GetAll = React.createClass({
 
     return (
       <div className="getall">
+        <Filter setView={this.setView}/>
         <h1>All Tasks</h1>
         {tasks}
       </div>

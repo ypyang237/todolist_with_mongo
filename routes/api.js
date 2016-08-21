@@ -47,8 +47,17 @@ router.route('/')
   })
 
   .delete(function(req, res){
-    res.send({
-      DELETEsuccess : true
+    console.log(req.body.id);
+    TaskFunctions.deleteTask(req.body.id)
+    .then(function(){
+      res.send({
+        DELETEsuccess : true
+      });
+    })
+    .catch(function(){
+      res.send({
+        success : false
+      });
     });
   });
 

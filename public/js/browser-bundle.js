@@ -27470,6 +27470,35 @@
 	    _reactRouter.browserHistory.push('/edit/' + id);
 	  },
 	
+	  handleDelete: function handleDelete(id) {
+	    var that = this;
+	
+	    var xmlReq = new XMLHttpRequest();
+	    xmlReq.addEventListener('load', function () {
+	      // that.componentDidMount();
+	      console.log(that.state.tasks);
+	
+	      var newState = that.state.tasks.filter(function (element) {
+	        if (element.id === id) {
+	          return false;
+	        } else {
+	          return true;
+	        }
+	      });
+	      console.log('new', newState);
+	
+	      that.setState({
+	        tasks: newState
+	      });
+	    });
+	
+	    xmlReq.open('DELETE', '/api');
+	    xmlReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	    xmlReq.send(JSON.stringify({
+	      id: id
+	    }));
+	  },
+	
 	  render: function render() {
 	    var that = this;
 	
@@ -27491,6 +27520,11 @@
 	          'button',
 	          { onClick: that.handleEdit.bind(that, element.id) },
 	          'Edit'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: that.handleDelete.bind(that, element.id) },
+	          'Delete'
 	        )
 	      );
 	    });

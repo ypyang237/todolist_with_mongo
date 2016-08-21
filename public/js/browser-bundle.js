@@ -27499,6 +27499,50 @@
 	    }));
 	  },
 	
+	  handleToggle: function handleToggle(id) {
+	    var that = this;
+	    var status;
+	
+	    var newState = this.state.tasks.map(function (element) {
+	
+	      if (element.id === id) {
+	        if (element.done === true) {
+	          element.done = false;
+	          status = false;
+	        } else {
+	          element.done = true;
+	          status = true;
+	        }
+	      }
+	
+	      return {
+	        id: element.id,
+	        name: element.name,
+	        completed_at: element.completed_at,
+	        done: element.done
+	      };
+	    });
+	
+	    console.log(newState);
+	
+	    this.setState({
+	      tasks: newState
+	    });
+	
+	    var xmlReq = new XMLHttpRequest();
+	
+	    xmlReq.addEventListener('load', function () {
+	      console.log(this);
+	    });
+	
+	    xmlReq.open('PUT', '/api/toggle');
+	    xmlReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	    xmlReq.send(JSON.stringify({
+	      id: id,
+	      done: status
+	    }));
+	  },
+	
 	  render: function render() {
 	    var that = this;
 	
@@ -27516,6 +27560,13 @@
 	          null,
 	          element.completed_at
 	        ),
+	        _react2.default.createElement('input', {
+	          type: 'checkbox',
+	          name: 'done',
+	          value: element.done,
+	          checked: element.done === true,
+	          onChange: that.handleToggle.bind(that, element.id)
+	        }),
 	        _react2.default.createElement(
 	          'button',
 	          { onClick: that.handleEdit.bind(that, element.id) },

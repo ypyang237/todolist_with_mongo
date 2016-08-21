@@ -61,6 +61,16 @@ router.route('/')
     });
   });
 
+  router.route('/toggle')
+    .put(function(req, res){
+      TaskFunctions.toggleTask(req.body.id, req.body.done)
+      .then(function(){
+        res.send({
+          success : true
+        });
+      });
+    });
+
   router.route('/id/:id')
     .get(function(req, res){
       TaskFunctions.searchById(req.params.id)

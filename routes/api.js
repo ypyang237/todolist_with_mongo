@@ -79,8 +79,28 @@ router.route('/')
           task : task
         });
       });
+  });
 
+  router.route('/signin')
+    .post(function(req, res){
 
     });
+
+
+  router.route('/signup')
+    .post(function(req, res){
+      TaskFunctions.addUser(req.body.username, req.body.password)
+      .then(function(){
+        res.send({
+          success : true
+        });
+      })
+      .catch(function(){
+        res.send({
+          success : false
+        });
+      });
+    });
+
 
   module.exports = router;

@@ -59,9 +59,11 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Header = __webpack_require__(238),
-	    GetAll = __webpack_require__(241),
-	    Add = __webpack_require__(242),
-	    Edit = __webpack_require__(243);
+	    GetAll = __webpack_require__(239),
+	    Add = __webpack_require__(241),
+	    Edit = __webpack_require__(242),
+	    Signin = __webpack_require__(243),
+	    Signup = __webpack_require__(244);
 	
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRouter.Router,
@@ -71,7 +73,9 @@
 	    { path: '/', component: Header },
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: GetAll }),
 	    _react2.default.createElement(_reactRouter.Route, { path: 'add', component: Add }),
-	    _react2.default.createElement(_reactRouter.Route, { path: 'edit/:id', component: Edit })
+	    _react2.default.createElement(_reactRouter.Route, { path: 'edit/:id', component: Edit }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/signin', component: Signin }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/signup', component: Signup })
 	  )
 	), document.getElementById('content'));
 
@@ -27419,6 +27423,17 @@
 	        'Add a Task'
 	      ),
 	      _react2.default.createElement('br', null),
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: '/signup' },
+	        'Sign Up'
+	      ),
+	      _react2.default.createElement('br', null),
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: '/signin' },
+	        'Sign In'
+	      ),
 	      this.props.children
 	    );
 	  }
@@ -27427,9 +27442,7 @@
 	module.exports = Header;
 
 /***/ },
-/* 239 */,
-/* 240 */,
-/* 241 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27442,7 +27455,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Filter = __webpack_require__(244);
+	var Filter = __webpack_require__(240);
 	
 	var GetAll = _react2.default.createClass({
 	  displayName: 'GetAll',
@@ -27630,7 +27643,62 @@
 	module.exports = GetAll;
 
 /***/ },
-/* 242 */
+/* 240 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Filter = _react2.default.createClass({
+	  displayName: 'Filter',
+	
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      status: "All"
+	    };
+	  },
+	
+	  handleChange: function handleChange(event) {
+	    this.props.setView(event.target.value);
+	    this.setState({
+	      status: event.target.value
+	    });
+	  },
+	
+	  render: function render() {
+	
+	    return _react2.default.createElement(
+	      'select',
+	      { value: this.state.status, onChange: this.handleChange },
+	      _react2.default.createElement(
+	        'option',
+	        { value: 'Uncompleted' },
+	        'Show Uncompleted Tasks'
+	      ),
+	      _react2.default.createElement(
+	        'option',
+	        { value: 'Completed' },
+	        'Show Completed Tasks'
+	      ),
+	      _react2.default.createElement(
+	        'option',
+	        { value: 'All' },
+	        'Show All Tasks'
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Filter;
+
+/***/ },
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27720,7 +27788,7 @@
 	module.exports = Add;
 
 /***/ },
-/* 243 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27829,6 +27897,80 @@
 	module.exports = Edit;
 
 /***/ },
+/* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Signin = _react2.default.createClass({
+	  displayName: 'Signin',
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      username: '',
+	      password: ''
+	    };
+	  },
+	
+	  handleChange: function handleChange(field, event) {
+	    var nextState = {};
+	    nextState[field] = event.target.value;
+	    this.setState(nextState);
+	  },
+	
+	  handleSubmit: function handleSubmit() {
+	    //to be continued
+	  },
+	
+	  render: function render() {
+	
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'h2',
+	        null,
+	        'Sign In'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        'Username'
+	      ),
+	      _react2.default.createElement('input', {
+	        type: 'text',
+	        value: this.state.username,
+	        onChange: this.handleChange.bind(this, "username")
+	      }),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        'Password'
+	      ),
+	      _react2.default.createElement('input', {
+	        type: 'text',
+	        value: this.state.password,
+	        onChange: this.handleChange.bind(this, "password")
+	      }),
+	      _react2.default.createElement(
+	        'button',
+	        { onClick: this.handleSubmit },
+	        'Submit'
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = Signin;
+
+/***/ },
 /* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -27840,48 +27982,79 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Filter = _react2.default.createClass({
-	  displayName: 'Filter',
+	var Signup = _react2.default.createClass({
+	  displayName: 'Signup',
 	
 	
 	  getInitialState: function getInitialState() {
 	    return {
-	      status: "All"
+	      username: '',
+	      password: ''
 	    };
 	  },
 	
-	  handleChange: function handleChange(event) {
-	    this.props.setView(event.target.value);
-	    this.setState({
-	      status: event.target.value
+	  handleChange: function handleChange(field, event) {
+	    var nextState = {};
+	    nextState[field] = event.target.value;
+	    this.setState(nextState);
+	  },
+	
+	  handleSubmit: function handleSubmit() {
+	    var newReq = new XMLHttpRequest();
+	
+	    newReq.addEventListener('load', function () {
+	      console.log(this);
 	    });
+	
+	    newReq.open('POST', '/api/signup');
+	    newReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	    newReq.send(JSON.stringify({
+	      username: this.state.username,
+	      password: this.state.password
+	    }));
 	  },
 	
 	  render: function render() {
 	
 	    return _react2.default.createElement(
-	      'select',
-	      { value: this.state.status, onChange: this.handleChange },
+	      'div',
+	      null,
 	      _react2.default.createElement(
-	        'option',
-	        { value: 'Uncompleted' },
-	        'Show Uncompleted Tasks'
+	        'h2',
+	        null,
+	        'Sign Up Here'
 	      ),
 	      _react2.default.createElement(
-	        'option',
-	        { value: 'Completed' },
-	        'Show Completed Tasks'
+	        'p',
+	        null,
+	        'Username'
 	      ),
+	      _react2.default.createElement('input', {
+	        type: 'text',
+	        value: this.state.username,
+	        onChange: this.handleChange.bind(this, 'username')
+	      }),
 	      _react2.default.createElement(
-	        'option',
-	        { value: 'All' },
-	        'Show All Tasks'
+	        'p',
+	        null,
+	        'Password'
+	      ),
+	      _react2.default.createElement('input', {
+	        type: 'text',
+	        value: this.state.password,
+	        onChange: this.handleChange.bind(this, 'password')
+	      }),
+	      _react2.default.createElement(
+	        'button',
+	        { onClick: this.handleSubmit },
+	        'Submit'
 	      )
 	    );
 	  }
+	
 	});
 	
-	module.exports = Filter;
+	module.exports = Signup;
 
 /***/ }
 /******/ ]);

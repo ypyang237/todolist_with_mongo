@@ -6,28 +6,28 @@ module.exports = {
     var task = [
 
       {
-      name: 'squeezeOwen',
+      name: 'squeeze',
       completed_at: 0817,
       done: false,
       createdAt : new Date(),
       updatedAt : new Date()
       },
             {
-      name: 'coverOwen',
+      name: 'cover',
       completed_at: 0817,
       done: false,
       createdAt : new Date(),
       updatedAt : new Date()
       },
             {
-      name: 'manicureOwen',
+      name: 'manicure',
       completed_at: 0817,
       done: false,
       createdAt : new Date(),
       updatedAt : new Date()
       },
             {
-      name: 'noogieOwen',
+      name: 'noogie',
       completed_at: 0817,
       done: false,
       createdAt : new Date(),

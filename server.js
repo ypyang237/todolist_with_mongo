@@ -14,6 +14,8 @@ app
 
 app.use('/api', api);
 
+
+
 app.use(express.static(__dirname + "/public"));
 
 

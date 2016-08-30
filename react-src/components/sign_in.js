@@ -15,7 +15,10 @@ const Signin = React.createClass({
   },
 
   handleSubmit : function(){
-//to be continued
+    var newReq = new XMLHttpRequest();
+
+
+    newReq.open('GET')
   },
 
 

@@ -16,9 +16,16 @@ const Signin = React.createClass({
 
   handleSubmit : function(){
     var newReq = new XMLHttpRequest();
+    newReq.addEventListener('load', function(){
+      console.log('signIn', this);
+    })
 
-
-    newReq.open('GET')
+    newReq.open('POST', '/api/signin');
+    newReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    newReq.send(JSON.stringify({
+      username : this.state.username,
+      password : this.state.password
+    }))
   },
 
 
@@ -36,7 +43,7 @@ const Signin = React.createClass({
       />
       <p>Password</p>
       <input
-      type="text"
+      type="password"
       value={this.state.password}
       onChange={this.handleChange.bind(this, "password")}
       />

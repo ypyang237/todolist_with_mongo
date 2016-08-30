@@ -2,7 +2,8 @@
 
 const express = require('express'),
       router  = express.Router(),
-      TaskFunctions = require('../lib/taskFunctions')
+      TaskFunctions = require('../lib/taskFunctions'),
+      passport = require('passport')
       ;
 
 router.route('/')
@@ -82,8 +83,10 @@ router.route('/')
   });
 
   router.route('/signin')
-    .post(function(req, res){
-
+    .post(passport.authenticate('local'), function(req, res){
+      res.send({
+        success : true
+      });
     });
 
 

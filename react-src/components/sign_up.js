@@ -49,7 +49,7 @@ const Signup = React.createClass({
         />
         <p>Password</p>
         <input
-        type="text"
+        type="password"
         value={this.state.password}
         onChange={this.handleChange.bind(this, 'password')}
         />

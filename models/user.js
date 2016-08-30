@@ -1,6 +1,5 @@
 'use strict';
-const bcrypt = require('bcryptjs'),
-      Task   = require('./task.js')
+const bcrypt = require('bcryptjs')
       ;
 
 

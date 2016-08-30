@@ -27925,7 +27925,17 @@
 	  },
 	
 	  handleSubmit: function handleSubmit() {
-	    //to be continued
+	    var newReq = new XMLHttpRequest();
+	    newReq.addEventListener('load', function () {
+	      console.log('signIn', this);
+	    });
+	
+	    newReq.open('POST', '/api/signin');
+	    newReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	    newReq.send(JSON.stringify({
+	      username: this.state.username,
+	      password: this.state.password
+	    }));
 	  },
 	
 	  render: function render() {
@@ -27954,7 +27964,7 @@
 	        'Password'
 	      ),
 	      _react2.default.createElement('input', {
-	        type: 'text',
+	        type: 'password',
 	        value: this.state.password,
 	        onChange: this.handleChange.bind(this, "password")
 	      }),
@@ -28040,7 +28050,7 @@
 	        'Password'
 	      ),
 	      _react2.default.createElement('input', {
-	        type: 'text',
+	        type: 'password',
 	        value: this.state.password,
 	        onChange: this.handleChange.bind(this, 'password')
 	      }),

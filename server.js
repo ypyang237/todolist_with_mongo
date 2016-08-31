@@ -5,12 +5,8 @@ const express    = require('express'),
       app        = express(),
       api        = require('./routes/api'),
       PORT       = process.env.PORT || 3000,
-      passport   = require('passport'),
-      session    = require('express-session'),
-      db         = require('./models'),
-      User       = db.User,
-      bcrypt     = require('bcryptjs'),
-      LocalStrategy = require('passport-local').Strategy
+      passport   = require('./passport'),
+      session    = require('express-session')
       ;
 
 app
@@ -29,32 +25,6 @@ app.use(session({
 app
    .use(passport.initialize())
    .use(passport.session());
-
-passport.use(new LocalStrategy(
-  function(username, password, done){
-    User.findAll({
-      where : {
-        username : username
-      }
-    })
-    .then(function(user){
-      console.log('user', user[0].dataValues.password);
-      if(user.length === 0){
-        return done(null, false, {message : 'user does not exist'});
-      }
-      if(bcrypt.compareSync(password, user[0].dataValues.password) === false){
-        return done(null, false, {message : 'user does not exist'});
-      }
-      return done(null, user);
-    });
-  }));
-
-passport.serializeUser(function(user, done){
-  return done(null, user);
-});
-passport.deserializeUser(function(user, done){
-  return done(null, user);
-});
 
 app.use('/api', api);
 

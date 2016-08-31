@@ -27432,7 +27432,7 @@
 	      _react2.default.createElement(
 	        _reactRouter.Link,
 	        { to: '/signin' },
-	        'Sign In'
+	        'Log In'
 	      ),
 	      this.props.children
 	    );
@@ -27906,6 +27906,8 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactRouter = __webpack_require__(175);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Signin = _react2.default.createClass({
@@ -27928,6 +27930,7 @@
 	    var newReq = new XMLHttpRequest();
 	    newReq.addEventListener('load', function () {
 	      console.log('signIn', this);
+	      _reactRouter.browserHistory.push('/');
 	    });
 	
 	    newReq.open('POST', '/api/signin');
@@ -27946,7 +27949,7 @@
 	      _react2.default.createElement(
 	        'h2',
 	        null,
-	        'Sign In'
+	        'Log In'
 	      ),
 	      _react2.default.createElement(
 	        'p',
@@ -27990,6 +27993,8 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactRouter = __webpack_require__(175);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Signup = _react2.default.createClass({
@@ -28014,6 +28019,8 @@
 	
 	    newReq.addEventListener('load', function () {
 	      console.log(this);
+	
+	      _reactRouter.browserHistory.push('/signin');
 	    });
 	
 	    newReq.open('POST', '/api/signup');

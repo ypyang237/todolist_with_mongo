@@ -17,7 +17,7 @@ const Header = React.createClass({
         <br/>
         <Link to='/signup'>Sign Up</Link>
         <br/>
-        <Link to='/signin'>Sign In</Link>
+        <Link to='/signin'>Log In</Link>
         {this.props.children}
       </div>
     )

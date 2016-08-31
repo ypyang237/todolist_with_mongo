@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 
 const Signin = React.createClass({
   getInitialState : function() {
@@ -18,6 +19,7 @@ const Signin = React.createClass({
     var newReq = new XMLHttpRequest();
     newReq.addEventListener('load', function(){
       console.log('signIn', this);
+      browserHistory.push('/')
     })
 
     newReq.open('POST', '/api/signin');
@@ -34,7 +36,7 @@ const Signin = React.createClass({
     return (
 
       <div>
-      <h2>Sign In</h2>
+      <h2>Log In</h2>
       <p>Username</p>
       <input
       type="text"

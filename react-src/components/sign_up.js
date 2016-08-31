@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import { browserHistory } from 'react-router';
 
 const Signup = React.createClass({
 
@@ -22,6 +23,8 @@ const Signup = React.createClass({
 
     newReq.addEventListener('load', function(){
       console.log(this);
+
+      browserHistory.push('/signin');
     })
 
 

@@ -9,18 +9,29 @@ const Header = require('./components/header'),
       Add    = require('./components/add'),
       Edit   = require('./components/edit'),
       Signin = require('./components/sign_in'),
-      Signup = require('./components/sign_up')
+      Signup = require('./components/sign_up'),
+      Counter = require('./components/counter')
       ;
 
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+
+const counterReducer = require('./reducers/counter');
+const store = createStore(counterReducer);
+
+
 ReactDOM.render(
-  <Router history={browserHistory}>
-    <Route path="/" component={Header}>
-      <IndexRoute component={GetAll}></IndexRoute>
-      <Route path="add" component={Add}></Route>
-      <Route path="edit/:id" component={Edit}></Route>
-      <Route path="/signin" component={Signin}></Route>
-      <Route path ="/signup" component={Signup}></Route>
-    </Route>
-  </Router>,
+  <Provider store={store}>
+    <Router history={browserHistory}>
+      <Route path="/" component={Header}>
+        <IndexRoute component={GetAll}></IndexRoute>
+        <Route path="add" component={Add}></Route>
+        <Route path="edit/:id" component={Edit}></Route>
+        <Route path="/signin" component={Signin}></Route>
+        <Route path ="/signup" component={Signup}></Route>
+        <Route path ="/counter" component={Counter}></Route>
+      </Route>
+    </Router>
+  </Provider>,
   document.getElementById('content')
 )

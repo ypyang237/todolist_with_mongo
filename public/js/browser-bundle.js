@@ -68,10 +68,12 @@
 	    Edit = __webpack_require__(242),
 	    Signin = __webpack_require__(243),
 	    Signup = __webpack_require__(244),
-	    Counter = __webpack_require__(245);
+	    Counter = __webpack_require__(245),
+	    ReduxList = __webpack_require__(271);
 	
-	var counterReducer = __webpack_require__(268);
-	var store = (0, _redux.createStore)(counterReducer);
+	var Reducers = __webpack_require__(269);
+	
+	var store = (0, _redux.createStore)(Reducers);
 	
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRedux.Provider,
@@ -87,7 +89,8 @@
 	      _react2.default.createElement(_reactRouter.Route, { path: 'edit/:id', component: Edit }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/signin', component: Signin }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/signup', component: Signup }),
-	      _react2.default.createElement(_reactRouter.Route, { path: '/counter', component: Counter })
+	      _react2.default.createElement(_reactRouter.Route, { path: '/counter', component: Counter }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/reduxlist', component: ReduxList })
 	    )
 	  )
 	), document.getElementById('content'));
@@ -27453,6 +27456,12 @@
 	        { to: '/counter' },
 	        'THIS IS THE COUNTER'
 	      ),
+	      _react2.default.createElement('br', null),
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: '/reduxlist' },
+	        'Redux List'
+	      ),
 	      this.props.children
 	    );
 	  }
@@ -28100,7 +28109,7 @@
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
-	    counter: state
+	    counter: state.Counter
 	  };
 	};
 	
@@ -28165,7 +28174,7 @@
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
-	    counter: state
+	    counter: state.Counter
 	  };
 	};
 	
@@ -29778,6 +29787,134 @@
 	};
 	
 	module.exports = Counter;
+
+/***/ },
+/* 269 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _redux = __webpack_require__(246);
+	
+	var Counter = __webpack_require__(268);
+	var List = __webpack_require__(270);
+	
+	var Reducers = (0, _redux.combineReducers)({
+	  Counter: Counter,
+	  List: List
+	});
+	
+	module.exports = Reducers;
+
+/***/ },
+/* 270 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	var List = function List() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? ['first item'] : arguments[0];
+	  var action = arguments[1];
+	
+	
+	  switch (action.type) {
+	    case 'ADD_ITEM':
+	      return state.concat(action.thing);
+	
+	    default:
+	      return state;
+	  }
+	};
+	
+	module.exports = List;
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(261);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ReduxList = _react2.default.createClass({
+	  displayName: 'ReduxList',
+	
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      value: ''
+	    };
+	  },
+	
+	  handleSubmit: function handleSubmit() {
+	    this.props.addItem(this.state.value);
+	  },
+	
+	  handleInput: function handleInput(event) {
+	    this.setState({
+	      value: event.target.value
+	    });
+	  },
+	
+	  render: function render() {
+	
+	    var Listing = this.props.reduxlist.map(function (element) {
+	      return _react2.default.createElement(
+	        'p',
+	        { key: element },
+	        element
+	      );
+	    });
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'reduxlist' },
+	      _react2.default.createElement(
+	        'h1',
+	        null,
+	        'Redux List'
+	      ),
+	      _react2.default.createElement('input', {
+	        type: 'text',
+	        value: this.state.value,
+	        onChange: this.handleInput
+	      }),
+	      _react2.default.createElement(
+	        'button',
+	        { onClick: this.handleSubmit },
+	        'Submit'
+	      ),
+	      Listing
+	    );
+	  }
+	});
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    reduxlist: state.List
+	  };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    addItem: function addItem(item) {
+	      dispatch({
+	        type: 'ADD_ITEM',
+	        thing: item
+	      });
+	    }
+	  };
+	};
+	
+	ReduxList = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ReduxList);
+	
+	module.exports = ReduxList;
 
 /***/ }
 /******/ ]);

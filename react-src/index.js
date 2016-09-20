@@ -10,14 +10,16 @@ const Header = require('./components/header'),
       Edit   = require('./components/edit'),
       Signin = require('./components/sign_in'),
       Signup = require('./components/sign_up'),
-      Counter = require('./components/counter')
+      Counter = require('./components/counter'),
+      ReduxList = require('./components/reduxlist')
       ;
 
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
-const counterReducer = require('./reducers/counter');
-const store = createStore(counterReducer);
+const Reducers = require('./reducers/index');
+
+const store = createStore(Reducers);
 
 
 ReactDOM.render(
@@ -30,6 +32,7 @@ ReactDOM.render(
         <Route path="/signin" component={Signin}></Route>
         <Route path ="/signup" component={Signup}></Route>
         <Route path ="/counter" component={Counter}></Route>
+        <Route path ="/reduxlist" component={ReduxList}></Route>
       </Route>
     </Router>
   </Provider>,

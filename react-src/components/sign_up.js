@@ -71,7 +71,7 @@ var Signup = React.createClass({
 
 const mapStateToProps = (state) => {
   return {
-    counter : state
+    counter : state.Counter
   }
 }
 
